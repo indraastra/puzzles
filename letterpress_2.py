@@ -24,7 +24,7 @@ import itertools
 from termcolor import colored
 
 class Board:
-	# 
+	"""Represents a Letterpress game board and models core gameplay behaviors."""
 	def __init__(self, height=5, width=5):
 		self.height = height
 		self.width = width
@@ -41,7 +41,7 @@ class Board:
 				value = letter[0]
 				tile.value = value
 				self.tileset.update(value)
-				# Handle ownership.
+				# Handle tile ownership.
 				if len(letter) > 1:
 					owner = letter[2:-1]
 					tile.owner = owner
@@ -52,21 +52,28 @@ class Board:
 		return all(self.tileset[l] >= word.counter[l] for l in word.counter)
 
 	def play(self, move, player):
-		locked = []
-		prev_locked = 0
-		while True:
-			for tile in move.tiles:
-				if not tile.locked():
-					tile.owner = player
-				else:
-					locked.append(tile)
-			if len(locked) == prev_locked:
-				break
-			else:
-				prev_locked = len(locked)
-				locked = []
+		change_ownership = [tile for tile in move.tiles if not tile.locked()]
+		for tile in change_ownership:
+		 	tile.owner = player
+		# Previously thought the game allowed unlocking a tile as long as you used
+		# one of its neighbors during that turn, but apparently that's not the
+		# case, so this loop is unnecessary.
+		# locked = []
+		# prev_locked = 0
+		# while True:
+		# for tile in move.tiles:
+		# 	if not tile.locked():
+		# 		tile.owner = player
+		# 	else:
+		# 		locked.append(tile)
+		# 	if len(locked) == prev_locked:
+		# 		break
+		# 	else:
+		# 		prev_locked = len(locked)
+		# 		locked = []
 
 	def preview(self, move, player):
+		"""Makes a move and returns a representation of the board and its scores."""
 		saved = [t.owner for t in move.tiles]
 		self.play(move, player)
 		scores = self.score()
@@ -76,17 +83,21 @@ class Board:
 		return (string, scores)
 
 	def score(self):
-		scores = Counter()
+		"""Returns a counter of tiles owned and locked by owner."""
+		owned = Counter()
+		locked = Counter()
 		for row in self.tilegrid:
-			scores.update([tile.owner for tile in row if tile.owner])
-		return scores
+			owned.update([tile.owner for tile in row if tile.owner])
+			locked.update([tile.owner for tile in row if tile.owner and tile.locked()])
+		return (owned, locked)
 		
 	def tile(self, i, j):
 		return self.tilegrid[i][j]
 
 	def __str__(self):
-		return "\n".join(["".join([colored(letter.value.upper(), letter.owner or 'white') for letter in row])
-										  for row in self.tilegrid])
+		return "\n".join(["".join([
+			colored(tile.value.upper(), tile.owner or 'white', attrs=(['bold'] if tile.locked() else [])) for tile in row
+		]) for row in self.tilegrid])
 
 
 class Tile:
@@ -176,11 +187,11 @@ class Cheater:
 				for l in word.counter))
 
 	def score(self, move, player):
-		# Favors maximizing player's number of tiles possessed while 
+		# Favors maximizing player's number of tiles possessed and locked while 
 		# minimizing opponent's tiles.
-		scores = self.board.preview(move, player)[1]
-		total = sum(scores.values())
-		return scores[player] / float(total)
+		owned, locked = self.board.preview(move, player)[1]
+		total = sum(owned.values()) + sum(locked.values())
+		return (owned[player] * locked[player]) / ( float(total) ** 2 )
 
 	def best(self, player, n=10):
 		# Sorts the precomputed moves by what works best for the current player
@@ -194,7 +205,7 @@ def main():
 	player = 'blue'
 
 	print "loading words..."
-	words = [Word(w) for w in open("/usr/share/dict/words") if 8 > len(w) > 6]
+	words = [Word(w) for w in open("/usr/share/dict/words") if 15 > len(w) > 6]
 	print len(words), "words loaded"
 
 	board = Board(5, 5)
@@ -203,39 +214,46 @@ def main():
 
 	while True:
 		# Handle player move or board update.
-		command = raw_input("command > ")
+		command = raw_input("[%s] command > " % colored(player, player))
 		if command.startswith("cheat"):
-			_, player = command.split(" ")
+			player = command.split(" ")[1] if " " in player else player
 			scored_moves = cheater.best(player)
 			for i, (move, score) in enumerate(scored_moves):
+				preview, score = board.preview(move, player)
 				print
 				print "[ Move", i + 1, "]"
 				print "word:", move.word.word
-				print board.preview(move, player)[0]
-				print "score:", score
+				print preview
+				print "score: red", score[0]["red"], ", blue", score[0]["blue"]
 
 			choice = input("enter move # > ")
 			if choice == 0: continue
 			chosen_move = scored_moves[choice - 1][0]
 			board.play(chosen_move, player)
+		
 		elif command.startswith("parse"):
 			letters = command.split(" ", 1)[1]
 			board.parse(letters)
 			cheater = Cheater(board, words)
+		
 		elif command.startswith("move"):
 			_, player, tiles_text = command.split(" ", 2)
 			move = Move.parseFrom(tiles_text, board)
 			board.play(move, player)
+		
 		elif command.startswith("show"):
 			pass
+		
 		else:
 			continue
 
+		score = board.score()[0]
 		print
 		print "[[ Current Board ]]"
 		print "#" * 5
 		print board
 		print "#" * 5
+		print "score: red", score["red"], ", blue", score["blue"]
 		print
 
 
