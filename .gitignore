@@ -103,4 +103,6 @@ venv.bak/
 # mypy
 .mypy_cache/
 
-euler/.ipynb_checkpoints/prob686-checkpoint.ipynb
+# Py 2 -> 3 futurize
+*.bak
+

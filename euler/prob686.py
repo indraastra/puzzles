@@ -170,13 +170,38 @@ def p_faster(L, n):
         values_checked += 1
         # This version was too slow:
         #    pow_of_2 = 2 ** guess
-        pow_of_2 = approx_pow_2(guess, places)
-        if not begins_with(pow_of_2, L):
+        #    if not begins_with(pow_of_2, L):
+        #        continue
+        if approx_pow_2(guess, places) != L:
             continue
         guesser.good_guess()
         m += 1
         if m == n:
             return guess
+
+
+def p_correct(L, n):
+    """
+    The "smart" incrementer is greedy and can miss valid solutions.
+    
+    >>> p_correct(12, 1)
+    7
+    >>> p_correct(12, 2)
+    80
+    >>> p_correct(123, 45)
+    12710
+    """
+    places = len(str(L))
+    guess = 0
+    m = 0
+    values_checked = 0
+    while True:
+        values_checked += 1
+        if approx_pow_2(guess, places) == L:
+            m += 1
+            if m == n:
+                return guess
+        guess += 1
 
 
 if __name__ == "__main__":

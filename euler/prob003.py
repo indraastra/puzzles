@@ -1,3 +1,4 @@
+from __future__ import print_function
 import math
 import psyco
 
@@ -7,7 +8,7 @@ i = 2
 while i < math.sqrt ( 317584931803 ):
     if 317584931803 % i == 0:
         if len(factors) == 0:
-            print i
+            print(i)
             factors.append(i)
         else:
             bad = False
@@ -16,8 +17,8 @@ while i < math.sqrt ( 317584931803 ):
                     bad = True
                     break
             if not bad:
-                print i
+                print(i)
                 factors.append(i)
     i += 1
 
-print "done:", max(factors)
+print("done:", max(factors))
