@@ -1,3 +1,4 @@
+import heapq
 import itertools
 import math
 
@@ -98,8 +99,8 @@ class SmartGuesser:
     >>> next(g)
     11
     >>> g = SmartGuesser(start_guess=5, increments=[20, 10])
-    >>> list(itertools.islice(g, 3))
-    [5, 15, 25]
+    >>> list(itertools.islice(g, 5))
+    [5, 15, 25, 6, 7]
     """
 
     def __init__(self, start_guess=0, increments=()):
@@ -203,7 +204,102 @@ def p_correct(L, n):
                 return guess
         guess += 1
 
+ 
+class SmarterGuesser:
+    """
+    >>> g = SmarterGuesser()
+    >>> list(itertools.islice(g, 3))
+    [0, 1, 2]
+    >>> next(g)
+    3
+    >>> g.good_guess()
+    >>> next(g)
+    4
+    >>> next(g)
+    5
+    >>> next(g)
+    6
+    >>> next(g)
+    7
+    >>> g.good_guess()
+    >>> next(g)
+    11
+    >>> g = SmarterGuesser(start_guess=5, increments=[20, 10])
+    >>> list(itertools.islice(g, 5))
+    [5, 15, 25, 6, 7]
+    """
+
+    def __init__(self, start_guess=0, increments=()):
+        self.next = [start_guess]
+        self.previous = start_guess
+        self.previous_good = None
+        self.considering = start_guess
+        self.smart_increments = set(increments)
+        self._add_increments(self.smart_increments)
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if not self.next:
+            # Step from our previous attempt if we're out of options.
+            self.previous += 1
+            heapq.heappush(self.next, self.previous)
+        self.considering = heapq.heappop(self.next)
+        return self.considering
+        
+    def _new_increment(self, new_increment):
+        if new_increment > 1 and new_increment not in self.smart_increments:
+            self.smart_increments.add(new_increment)
+        for increment in sorted(self.smart_increments):
+            next_value = self.considering + increment
+            if next_value not in self.next:
+                heapq.heappush(self.next, next_value)
+
+    def _add_increments(self, new_increments):
+        for increment in new_increments:
+            self._new_increment(increment)
+
+    def good_guess(self):
+        # If we had a good guess previously, update the known good increments.
+        if self.previous_good:
+            self._new_increment(self.considering-self.previous_good)
+        self.previous_good = self.previous
+        self.previous = self.considering
+
+
+def p_fastest_correct(L, n):
+    """
+    >>> p_fastest_correct(12, 1)
+    7
+    >>> p_fastest_correct(12, 2)
+    80
+    >>> p_fastest_correct(123, 45)
+    12710
+    >>> p_fastest_correct(122, 10)
+    3289
+    """
+    places = len(str(L))
+    guesser = SmarterGuesser(increments=[pow_increment(L)])
+    found = 0
+    checked = 0
+    lo = math.log10(L)
+    lo -= int(lo)
+    hi = math.log10(L + 1)
+    hi -= int(hi)
+    c = math.log10(2)
+    for guess in guesser:
+        checked += 1
+        dec = guess * c
+        dec -= int(dec)
+        if lo <= dec <= hi:
+            found += 1
+            guesser.good_guess()
+            if found == n:
+                return guess
+
 
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
+    print('Solution: ', p_fastest(123, 678910))
