@@ -1,3 +1,5 @@
+import functools
+
 N = "73167176531330624919225119674426574742355349194934\
 96983520312774506326239578318016984801869478851843\
 85861560789112949495459501737958331952853208805511\
@@ -22,13 +24,14 @@ N = "73167176531330624919225119674426574742355349194934\
 max = 0
 
 i = 0
-while i < len ( N ) - 4:
-    five = tuple ( N[i:i+5] )
+n_adj = 13
+while i < len ( N ) - n_adj + 1:
+    five = tuple ( N[i:i+n_adj] )
     five = map ( lambda x: int(x), five )
-    product = reduce ( lambda x,y: x*y, five )
+    product = functools.reduce ( lambda x,y: x*y, five )
     if product > max:
         max = product
     i += 1
 
-print max
+print(max)
 

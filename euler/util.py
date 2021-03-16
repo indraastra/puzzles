@@ -1,4 +1,3 @@
-import psyco
 import math
 
 class memoize:
@@ -107,7 +106,7 @@ def prime_sieve(limit):
                 is_prime[m] = 0
                 m += i
         i += 1
-    return frozenset([i for i in xrange(limit) if is_prime[i]])
+    return frozenset([i for i in range(limit) if is_prime[i]])
 
 def primes(n): 
     """
@@ -116,14 +115,14 @@ def primes(n):
     """
     if n==2: return [2]
     elif n<2: return []
-    s=range(3,n+1,2)
+    s=list(range(3,n+1,2))
     mroot = n ** 0.5
-    half=(n+1)/2-1
+    half=(n+1)//2-1
     i=0
     m=3
     while m <= mroot:
         if s[i]:
-            j=(m*m-3)/2
+            j=(m*m-3)//2
             s[j]=0
             while j<half:
                 s[j]=0
@@ -163,11 +162,11 @@ def rotations(l):
 _divisors = {}
 def divisors(n):
     yield 1
-    for i in xrange(2, int(math.sqrt(n))+1):
+    for i in range(2, int(math.sqrt(n))+1):
         if n % i == 0:
             yield i
             if i*i != n:
-                yield n/i
+                yield n//i
 
 def divisors_memoized(n):
     if n in _divisors:
@@ -214,7 +213,7 @@ def factorial(n):
         return _factorials[n]
     else:
         start = len(_factorials)
-        for idx in xrange(start, n + 1):
+        for idx in range(start, n + 1):
             _factorials.append(idx * _factorials[idx - 1])
         return _factorials[-1]
 

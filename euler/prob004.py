@@ -9,4 +9,4 @@ for i in range(999,100,-1):
         if ispalindrome(i*j):
             palindromes.append((i*j,i,j))
 
-print max(palindromes, key=lambda x: x[0])
+print(max(palindromes, key=lambda x: x[0]))

@@ -1,5 +1,3 @@
-import psyco
-
 MAX = 200000
 
 primes = [-1]*MAX
@@ -15,7 +13,7 @@ while i < MAX:
     if ( primes[i] != 0 ):
         primes[i] = 1
         listofprimes.append(i)
-        print "new prime:", i
+        #print "new prime:", i
         if len(listofprimes) == 10001:
             break
         j = 2*i
@@ -27,6 +25,6 @@ while i < MAX:
     i += 1
 
 if len(listofprimes) == 10001:
-    print "10001th prime:", listofprimes[10000]
+    print("10001th prime:", listofprimes[10000])
 else:
-    print "set MAX higher"
+    print("set MAX higher")

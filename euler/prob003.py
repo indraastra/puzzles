@@ -1,12 +1,12 @@
 from __future__ import print_function
 import math
-import psyco
 
 factors = []
 
 i = 2
-while i < math.sqrt ( 317584931803 ):
-    if 317584931803 % i == 0:
+n = 600851475143
+while i < math.sqrt ( n ):
+    if n % i == 0:
         if len(factors) == 0:
             print(i)
             factors.append(i)
