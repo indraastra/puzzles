@@ -50,6 +50,6 @@ def totient(n):
 def has_permuted_totient(n):
   return is_permutation(n, totient(n))
 
-print(min((n for n in tqdm(range(2, bound)) if has_permuted_totient(n)), 
+print(min((n for n in tqdm(range(2, bound)) if n not in primes and has_permuted_totient(n)), 
           key=lambda n: n / totient(n)))
 
