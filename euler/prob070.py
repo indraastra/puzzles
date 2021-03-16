@@ -17,7 +17,7 @@ def is_permutation(n1, n2):
 #print(min((n for n in tqdm(range(2, bound)) if has_permuted_totient(n)), 
 #          key=lambda n: n / util.totient(n, primes)))
           
-### Attempt 2 took
+### Attempt 2 took ~1min.
 # Like the prime sieve but for finding prime factors instead:
 def primes_and_factors(limit):
   factors = [set() for i in tqdm(range(limit))]
