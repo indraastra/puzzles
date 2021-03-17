@@ -70,15 +70,28 @@ def totients(limit):
 #def permutation_id(n):
 #  return ''.join(sorted(str(n)))
 
+# Technically this allows 88 == 880 == 880000, which allows more numbers to
+# be equivalent than the sorted-string versions above. However, that's not an
+# issue since we're still minimizing the value of n/phi(n) overall.
 def permutation_id(arr, digits=8): 
-    perms = (arr.reshape(-1, 1) // 10 ** np.arange(digits) % 10) 
-    perms.sort(axis=1) 
-    return perms       
+  powers_of_10 = 10 ** np.arange(digits)
+  perms = (arr.reshape(-1, 1) // powers_of_10 % 10) 
+  perms.sort(axis=1)
+  return (perms * powers_of_10[::-1]).sum(axis=1)
 
 ns = np.arange(bound)
 phis = totients(bound)
 permutation_ids = permutation_id(ns)
-is_prime = phis == ns-1
-bad_permutation = np.any(permutation_ids != permutation_ids[phis], axis=1)
-values = np.ma.masked_array(ns / phis, mask=is_prime|bad_permutation) 
-print(values[2:].argmin()+2)
+
+# Option 1:
+#is_prime = phis == ns-1
+#bad_permutation = np.any(permutation_ids != permutation_ids[phis], axis=1)
+#values = np.ma.masked_array(ns / phis, mask=is_prime|bad_permutation) 
+#print(values[2:].argmin()+2)
+
+# Option 2:
+not_prime = phis != ns-1
+is_permutation = permutation_ids == permutation_ids[phis]
+mask = not_prime & is_permutation
+mask[:2] = False
+print(ns[mask][(ns / phis)[mask].argmin()])
