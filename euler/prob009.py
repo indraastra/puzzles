@@ -9,7 +9,7 @@ for a in range ( 1, MAX ):
         if c % 1 == 0:
             c = int ( c )
             if c + a + b == 1000:
-                print "found!:", a, b, int ( c )
-                print "product is:", a*b*int ( c )
+                print("found!:", a, b, int ( c ))
+                print("product is:", a*b*int ( c ))
 
 

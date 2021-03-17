@@ -1,6 +1,5 @@
-import psyco
 
-MAX = 1000000
+MAX = 2_000_000
 
 primes = [-1]*MAX
 listofprimes = []
@@ -15,7 +14,6 @@ while i < MAX:
     if ( primes[i] != 0 ):
         primes[i] = 1
         listofprimes.append(i)
-        print "new prime:", i
         j = 2*i
         while j < MAX:
             primes[j] = 0
@@ -24,4 +22,4 @@ while i < MAX:
         primes[i] = 0
     i += 1
 
-print "sum of first", len(listofprimes), "primes is", sum(listofprimes)
+print("sum of first", len(listofprimes), "primes is", sum(listofprimes))

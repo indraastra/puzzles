@@ -1,11 +1,12 @@
 from tqdm import tqdm
+import numpy as np
 
 import util
 
 bound = 10**7
 
 ### Attempt 1 took ~18min on my laptop.
-primes = set(util.primes(bound))
+#primes = set(util.primes(bound))
 
 def is_permutation(n1, n2):
   return sorted(str(n1)) == sorted(str(n2))
@@ -37,7 +38,7 @@ def primes_and_factors(limit):
   return primes, factors
 
 
-primes, factors = primes_and_factors(bound)
+#primes, factors = primes_and_factors(bound)
 
 
 def totient(n):
@@ -49,7 +50,35 @@ def totient(n):
 
 def has_permuted_totient(n):
   return is_permutation(n, totient(n))
+  
+#print(min((n for n in tqdm(range(bound-1, 5_000_000, -1)) if n not in primes and has_permuted_totient(n)), 
+#          key=lambda n: n / totient(n)))
 
-print(min((n for n in tqdm(range(2, bound)) if n not in primes and has_permuted_totient(n)), 
-          key=lambda n: n / totient(n)))
+          
+### Attempt 3 takes 7s
+# Like the prime sieve but for finding totient values:
+def totients(limit):
+  phis = np.arange(limit).astype(float)
+  phis[:2] = 1
+  phis[2::2] *= 1/2
+  for i in tqdm(range(3, limit, 2)):
+    if phis[i] == i:  # is prime
+      phis[i::i] *= (1 - 1/i)
+  return phis.astype(int)
+  
+#@np.vectorize
+#def permutation_id(n):
+#  return ''.join(sorted(str(n)))
 
+def permutation_id(arr, digits=8): 
+    perms = (arr.reshape(-1, 1) // 10 ** np.arange(digits) % 10) 
+    perms.sort(axis=1) 
+    return perms       
+
+ns = np.arange(bound)
+phis = totients(bound)
+permutation_ids = permutation_id(ns)
+is_prime = phis == ns-1
+bad_permutation = np.any(permutation_ids != permutation_ids[phis], axis=1)
+values = np.ma.masked_array(ns / phis, mask=is_prime|bad_permutation) 
+print(values[2:].argmin()+2)
