@@ -1,4 +1,5 @@
 import math
+import functools
 
 class memoize:
     """
@@ -205,7 +206,7 @@ def is_abundant(n):
     return sum(divisors(n)) > n
 
 def product(l):
-    return reduce(lambda x: x*y, l)
+    return functools.reduce(lambda x,y: x*y, l, 1)
 
 _factorials = [1, 1, 2]
 def factorial(n):
