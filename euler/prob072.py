@@ -1,10 +1,9 @@
-import psyco
 import util
+from tqdm import tqdm
+import numpy as np
 
-primes = util.prime_sieve(1000000)
+bound = 1_000_000
 
-sum = 0
-for i in range(2, 1000001):
-    sum += util.totient(i, primes)
+total = util.fast_totients(bound).sum()
 
-print sum
+print(total)

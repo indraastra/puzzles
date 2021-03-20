@@ -1,10 +1,14 @@
 import math
 import functools
+import numpy as np
+from tqdm import tqdm
+
 
 class memoize:
     """
     from http://avinashv.net/2008/04/python-decorators-syntactic-sugar/
     """
+
     def __init__(self, function):
         self.function = function
         self.memoized = {}
@@ -16,10 +20,14 @@ class memoize:
             self.memoized[args] = self.function(*args)
             return self.memoized[args]
 
+
 def choose(n, k):
-    return factorial(n) / ( factorial(k) * factorial(n - k) )
+    return factorial(n) / (factorial(k) * factorial(n - k))
+
 
 _totients = {}
+
+
 def totient(n, primes):
     if n in primes:
         return n - 1
@@ -31,6 +39,7 @@ def totient(n, primes):
             t *= (1 - 1 / float(factor))
     return int(round(t))
 
+
 def totient_memoized(n):
     if n in _totients:
         return _totients[n]
@@ -38,7 +47,21 @@ def totient_memoized(n):
         _totients[n] = totient(n)
         return __totient[n]
 
-digits = set([str(i) for i in range(1,10)])
+
+def fast_totients(limit):
+    # Like the prime sieve but for finding totient values:
+    phis = np.arange(limit).astype(float)
+    phis[:2] = 1
+    phis[2::2] *= 1/2
+    for i in tqdm(range(3, limit, 2)):
+        if phis[i] == i:  # is prime
+            phis[i::i] *= (1 - 1/i)
+    return phis.astype(np.int64)
+
+
+digits = set([str(i) for i in range(1, 10)])
+
+
 def is_pandigital(m, n=9):
     s = str(m)
     if n != 9:
@@ -46,6 +69,7 @@ def is_pandigital(m, n=9):
     else:
         _digits = digits
     return len(s) == n and set(s) == _digits
+
 
 def take(n, l):
     if isinstance(l, list):
@@ -60,6 +84,7 @@ def take(n, l):
             i += 1
         return m
 
+
 def order(m, n):
     expt = 1
     prod = m
@@ -70,17 +95,21 @@ def order(m, n):
             prod *= m
             expt += 1
 
+
 def str2ints(string):
     return [ord(c) for c in string]
 
+
 def ints2str(list, conv=chr):
     return ''.join(conv(i) for i in list)
+
 
 def bin2dec(bitstring):
     """
     Converts a bitstring to decimal
     """
     return int(bitstring, 2)
+
 
 def dec2bin(num):
     """
@@ -92,6 +121,7 @@ def dec2bin(num):
         num = num >> 1
     bits.reverse()
     return ''.join(bits)
+
 
 def prime_sieve(limit):
     is_prime = [1] * limit
@@ -109,32 +139,37 @@ def prime_sieve(limit):
         i += 1
     return frozenset([i for i in range(limit) if is_prime[i]])
 
-def primes(n): 
+
+def primes(n):
     """
     credit goes to someone else for this; it ended up being faster than my
     function above
     """
-    if n==2: return [2]
-    elif n<2: return []
-    s=list(range(3,n+1,2))
+    if n == 2:
+        return [2]
+    elif n < 2:
+        return []
+    s = list(range(3, n+1, 2))
     mroot = n ** 0.5
-    half=(n+1)//2-1
-    i=0
-    m=3
+    half = (n+1)//2-1
+    i = 0
+    m = 3
     while m <= mroot:
         if s[i]:
-            j=(m*m-3)//2
-            s[j]=0
-            while j<half:
-                s[j]=0
-                j+=m
-        i=i+1
-        m=2*i+3
+            j = (m*m-3)//2
+            s[j] = 0
+            while j < half:
+                s[j] = 0
+                j += m
+        i = i+1
+        m = 2*i+3
     return [2]+[x for x in s if x]
+
 
 def is_prime(n):
     factors = prime_factors(n)
     return factors == [n]
+
 
 def is_palindrome(s):
     s = list(s)
@@ -142,16 +177,19 @@ def is_palindrome(s):
     s_rev.reverse()
     return s == s_rev
 
+
 def combinations(l):
     pass
+
 
 def permutations(l):
     if not l:
         yield []
     else:
-        for n,i in enumerate(l):
+        for n, i in enumerate(l):
             for p in permutations(l[:n]+l[n+1:]):
                 yield [i]+p
+
 
 def rotations(l):
     if not l:
@@ -160,7 +198,10 @@ def rotations(l):
         for n in range(len(l)):
             yield l[n:]+l[:n]
 
+
 _divisors = {}
+
+
 def divisors(n):
     yield 1
     for i in range(2, int(math.sqrt(n))+1):
@@ -169,12 +210,14 @@ def divisors(n):
             if i*i != n:
                 yield n//i
 
+
 def divisors_memoized(n):
     if n in _divisors:
         return _divisors[n]
     else:
         _divisors[n] = list(divisors(n))
         return _divisors[n]
+
 
 @memoize
 def prime_factors(n):
@@ -186,12 +229,16 @@ def prime_factors(n):
             i += 1
     return []
 
+
 _primes = (None, None)
+
+
 def prime_factors_alt(n):
     global _primes
     if not _primes or _primes[0] < n:
         _primes = (n*2, primes(n*2))
     return _prime_factors_alt(n)
+
 
 @memoize
 def _prime_factors_alt(m):
@@ -202,13 +249,18 @@ def _prime_factors_alt(m):
     else:
         return []
 
+
 def is_abundant(n):
     return sum(divisors(n)) > n
 
+
 def product(l):
-    return functools.reduce(lambda x,y: x*y, l, 1)
+    return functools.reduce(lambda x, y: x*y, l, 1)
+
 
 _factorials = [1, 1, 2]
+
+
 def factorial(n):
     if n <= len(_factorials) - 1:
         return _factorials[n]
@@ -218,17 +270,21 @@ def factorial(n):
             _factorials.append(idx * _factorials[idx - 1])
         return _factorials[-1]
 
+
 def is_curious(n):
     return n == sum(factorial(int(c)) for c in str(n))
 
+
 def int2list(n):
     return sorted([i for i in str(n)])
+
 
 def normalize(d):
     total = float(sum(d.values()))
     for k in d:
         d[k] /= total
     return d
+
 
 def is_subsequence(seq, sub):
     if len(sub) == 0:
@@ -244,12 +300,13 @@ def is_subsequence(seq, sub):
         else:
             return is_subsequence(seq[1:], sub)
 
+
 def subsequences(sequence, n):
     if n == 0:
         yield []
     elif n == 1:
         for i in sequence:
-            yield [i] 
+            yield [i]
     else:
         for i, el in enumerate(sequence):
             for subseq in subsequences(sequence[i:], n - 1):
