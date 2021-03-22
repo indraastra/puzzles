@@ -89,4 +89,4 @@ if __name__ == "__main__":
         for j in range ( len ( M[0] ) ):
             N[i][j] = [ downprod( i, j ), diagdownprod( i, j ),
                         rightprod( i, j ), diagupprod( i, j ) ]
-    print max( max( max( prods ) for prods in row ) for row in N )
+    print(max( max( max( prods ) for prods in row ) for row in N ))

@@ -1,4 +1,3 @@
-import psyco
 import math
 
 def getNumFactors(n):
@@ -15,7 +14,7 @@ if __name__ == "__main__":
     t = 1
     while True:
         if getNumFactors(t) >= 500:
-            print i, t
+            print(i, t)
             break
         i += 1
         t += i

@@ -1,5 +1,3 @@
-import psyco
-
 def collatzSequence(n):
     s = 1
     while n > 1:
@@ -13,9 +11,9 @@ def collatzSequence(n):
 if __name__ == "__main__":
     max = 0
     argmax = 0
-    for i in xrange(10**6,1,-1):
+    for i in range(10**6,1,-1):
         l = collatzSequence(i)
         if l > max:
             max = l
             argmax = i
-    print argmax
+    print(argmax)

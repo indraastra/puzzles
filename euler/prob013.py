@@ -101,4 +101,4 @@ numbers = [ 37107287533902102798797998220837590246510135740250,
 
 sum = sum(numbers)
 sum = list(str(sum))
-print ''.join(sum[:10])
+print(''.join(sum[:10]))
