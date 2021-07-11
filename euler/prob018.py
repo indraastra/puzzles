@@ -1,5 +1,3 @@
-import psyco
-
 triangle = [[75],
             [95,64],
             [17,47,82],
@@ -30,4 +28,4 @@ for i in range(len(triangle)-1, -1, -1):
         row = [r+max(next[j],next[j+1]) for j,r in enumerate(row)]
     results.insert(0, row)
 
-print results[0][0]
+print(results[0][0])

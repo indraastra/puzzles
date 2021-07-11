@@ -28,4 +28,4 @@ if __name__ == "__main__":
         if day == 0:
             sundays += 1
         date, day = next_first(date, day)
-    print sundays
+    print(sundays)

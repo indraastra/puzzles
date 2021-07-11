@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import psyco
 import string
 
 def permutations(xs):

@@ -1,7 +1,6 @@
 #!/usr/bin/python
 
 import util
-import psyco
 
 max = 28123
 
@@ -15,4 +14,4 @@ if __name__ == "__main__":
             else:
                 # since list is sorted, we can quit early
                 break
-    print sum(p[0] for p in enumerate(diabundants) if p[1] == 0)
+    print(sum(p[0] for p in enumerate(diabundants) if p[1] == 0))

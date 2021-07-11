@@ -25,8 +25,8 @@ for i in range(n, -1, -1):
 
 for i in range(0, n+1):
     for j in range(0, n+1):
-        print getnumpaths(i, j), ' ',
-    print
+        print(getnumpaths(i, j), ' ', end=' ')
+    print()
 
 #print streets[0][0]
 

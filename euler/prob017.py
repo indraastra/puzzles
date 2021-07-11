@@ -1,5 +1,3 @@
-import psyco
-
 words = {
         1: "one",
         2: "two",
@@ -37,17 +35,17 @@ def toSentence(n):
         return words[n]
     else:
         if 20 < n <= 99:
-            a = (n/10)*10
+            a = (n//10)*10
             m = n%10
             middle = ""
         elif 100 <= n <= 999:
-            a = n/100
+            a = n//100
             m = n%100
             middle = "hundred"
             if m != 0:
                 middle += "and"
         elif 1000 <= n <= 9999:
-            a = n/1000
+            a = n//1000
             m = n%1000
             middle = "thousand"
         return words[a] + middle + toSentence(m)
@@ -55,6 +53,6 @@ def toSentence(n):
 total = 0
 for i in range(1,1001):
     s = toSentence(i)
-    print i,s, len(s)
+    print(i,s, len(s))
     total += len(s)
-print total
+print(total)
