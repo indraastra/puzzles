@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "euler"
+version = "0.1.0"
+description = "Project Euler problem solutions"
+authors = ["Vishal Talwar <rawlatv@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.10"
+numpy = "^1.21.1"
+scipy = "^1.7.1"
+Pillow = "^8.3.1"
+jupyter = "^1.0.0"
+tqdm = "^4.62.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
