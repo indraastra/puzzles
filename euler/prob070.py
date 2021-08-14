@@ -1,5 +1,5 @@
-from tqdm import tqdm
 import numpy as np
+from tqdm import tqdm
 
 import util
 
@@ -7,7 +7,6 @@ bound = 10**7
 
 # Attempt 1 took ~18min on my laptop.
 #primes = set(util.primes(bound))
-
 
 def is_permutation(n1, n2):
   return sorted(str(n1)) == sorted(str(n2))
