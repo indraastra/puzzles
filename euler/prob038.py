@@ -1,4 +1,3 @@
-import psyco
 from util import is_pandigital
 
 arg = 0
@@ -17,4 +16,4 @@ while i <= 99999:
             arg = i
     i += 1
 
-print arg, max
+print(arg, max)

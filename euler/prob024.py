@@ -15,8 +15,8 @@ def permutations(xs):
 
 if __name__ == "__main__":
     i = 0
-    for p in permutations(range(10)):
+    for p in permutations(list(range(10))):
         i += 1
         if i == 1000000:
-            print ''.join(map(str,p))
+            print(''.join(map(str,p)))
             break

@@ -30,5 +30,5 @@ def fibStream():
 if __name__ == "__main__":
     for i,f in enumerate(fibStream()):
         if len(str(f)) >= 1000:
-            print i
+            print(i)
             break

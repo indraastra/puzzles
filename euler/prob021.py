@@ -9,4 +9,4 @@ if __name__ == "__main__":
         sum_d_n = sum(util.divisors_memoized(n))
         if sum_d_n == m and n != m:
             amicable_numbers.add(m)
-    print(sum(amicable_numbers))
+    print((sum(amicable_numbers)))

@@ -1,4 +1,3 @@
-import psyco
 import util
 
 primes = set(util.primes(1000000))
@@ -25,5 +24,5 @@ if __name__ == "__main__":
             if all_prime(left_right(p)) and all_prime(right_left(p)):
                 sum += p
                 num += 1
-    print "found:", num
-    print "sum:", sum
+    print("found:", num)
+    print("sum:", sum)

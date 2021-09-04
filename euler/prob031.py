@@ -25,4 +25,4 @@ def numWays(amt, coins=[200,100,50,20,10,5,2,1]):
         return numWays(amt - car(coins), coins) + numWays(amt, cdr(coins))
 
 if __name__ == "__main__":
-    print numWays(200)
+    print(numWays(200))

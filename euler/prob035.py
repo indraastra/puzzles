@@ -7,11 +7,10 @@
 # 
 # How many circular primes are there below one million?
 
-import psyco
 from util import rotations
  
 def isCircular(p):
-    for ns in rotations(map(int,list(str(p)))):
+    for ns in rotations(list(map(int,list(str(p))))):
         n = int(''.join(map(str,ns)))
         if not isPrime[n]:
             return False
@@ -22,7 +21,7 @@ if __name__ == "__main__":
     isPrime = [True]*1000001
     primes = []
 
-    for i in xrange(2, 1000001):
+    for i in range(2, 1000001):
         if isPrime[i]:
             primes.append(i)
             for j in range(i*i, 1000001, i):
@@ -33,6 +32,6 @@ if __name__ == "__main__":
         if p > 1000000:
             break
         if isCircular(p):
-            print p
+            print(p)
             count += 1
-    print "count:", count
+    print("count:", count)

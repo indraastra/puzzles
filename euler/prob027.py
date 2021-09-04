@@ -1,6 +1,5 @@
 #!/usr/bin/python
 
-import psyco
 import util
 
 primes = util.prime_sieve(3000)
@@ -40,6 +39,6 @@ if __name__ == "__main__":
             if num > max:
                 max = num
                 max_coeffs = (-a,-b)
-    print max, max_coeffs
-    print "product:", max_coeffs[0] * max_coeffs[1]
+    print((max, max_coeffs))
+    print(("product:", max_coeffs[0] * max_coeffs[1]))
 

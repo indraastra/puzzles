@@ -13,20 +13,19 @@
 # Find the sum of all the numbers that can be written as the sum of fifth
 # powers of their digits.
 
-import psyco
 
 if __name__ == "__main__":
     e = 5
     total = 0
     i = 2
     while True:
-        ns = map(int, list(str(i)))
+        ns = list(map(int, list(str(i))))
         # if the best we can do with this many digits is not good enough, stop
         if len(ns)*(9**e) < i:
-            print "stopping at", i
+            print("stopping at", i)
             break
-        if i == sum(map(lambda x: x**e, ns)):
-            print i
+        if i == sum([x**e for x in ns]):
+            print(i)
             total += i
         i += 1
-    print "total", total
+    print("total", total)

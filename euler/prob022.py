@@ -12,4 +12,4 @@ if __name__ == "__main__":
     f = open("names.txt")
     names = [x.strip() for x in f.readlines()]
     names.sort()
-    print(sum(score(name, idx+1) for idx, name in enumerate(names)))
+    print((sum(score(name, idx+1) for idx, name in enumerate(names))))
