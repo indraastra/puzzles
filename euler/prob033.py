@@ -5,8 +5,7 @@ from functools import reduce
 
 
 def reduce_fraction(numerator, denominator):
-    if denominator % numerator == 0:
-        return (1, denominator / numerator)
+    return (1, denominator // numerator)
 
 if __name__ == "__main__":
     curious = []
@@ -22,6 +21,7 @@ if __name__ == "__main__":
                 if d2 != 0:
                     if n1/float(d2) == n/float(d):
                         curious.append((n, d))
+    print(curious)
 
-    print(reduce_fraction(reduce(lambda x,y: x*y, [f[0] for f in curious]), 
-                          reduce(lambda x,y: x*y, [f[1] for f in curious]))[1])
+    print(reduce_fraction(util.product(f[0] for f in curious),
+                          util.product(f[1] for f in curious))[1])

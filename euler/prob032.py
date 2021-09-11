@@ -5,7 +5,7 @@ products = set()
 for i in range(100):
     for j in range(10000):
         k = i*j
-        if is_pandigital(i + j + k):
+        if is_pandigital(''.join(map(str, (i,j,k)))):
             print(i,j,k)
             products.add(k)
 

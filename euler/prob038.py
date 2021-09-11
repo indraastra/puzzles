@@ -1,4 +1,7 @@
-from util import is_pandigital
+_digits = set(map(str, range(1, 10)))
+
+def is_pandigital(m, n=9):
+    return len(m) == n and set(m) == _digits
 
 arg = 0
 max = 0
@@ -7,9 +10,9 @@ while i <= 99999:
     n = 1
     digits = []
     while len(digits) < 9:
-        digits.extend(list(str(i*n)))
+        digits.extend(str(i*n))
         n += 1
-    if len(digits) == 9 and is_pandigital(digits):
+    if is_pandigital(digits):
         num = int(''.join(digits))
         if num > max:
             max = num

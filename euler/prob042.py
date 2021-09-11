@@ -1,4 +1,3 @@
-import psyco
 import util
 
 words = [word.strip()[1:-1] for word in open("words.txt", "r").read().split(",")]
@@ -20,4 +19,4 @@ for w in words:
     if i in triangle_numbers:
         num_triangle_words += 1
 
-print num_triangle_words
+print(num_triangle_words)

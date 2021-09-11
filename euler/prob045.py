@@ -1,4 +1,3 @@
-import psyco
 import util
 
 NUM = 100000
@@ -6,7 +5,7 @@ NUM = 100000
 def triangles():
     n = 0
     while True:
-        yield n * (n + 1) / 2
+        yield n * (n + 1) // 2
         n += 1
 
 triangles = set(util.take(NUM, triangles()))
@@ -14,7 +13,7 @@ triangles = set(util.take(NUM, triangles()))
 def pentagonals():
     n = 0
     while True:
-        yield n * (3 * n - 1) / 2
+        yield n * (3 * n - 1) // 2
         n += 1
 
 pentagonals = set(util.take(NUM, pentagonals()))
@@ -27,4 +26,4 @@ def hexagonals():
 
 hexagonals = set(util.take(NUM, hexagonals()))
 
-print sorted(triangles.intersection(pentagonals).intersection(hexagonals))
+print(sorted(triangles.intersection(pentagonals).intersection(hexagonals)))

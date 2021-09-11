@@ -106,3 +106,4 @@ venv.bak/
 # Py 2 -> 3 futurize
 *.bak
 
+.euler-session.json

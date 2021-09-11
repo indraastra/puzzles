@@ -1,8 +1,7 @@
-import psyco
 import util
 
 def is_sequence(seq):
-    return seq == range(seq[0], seq[-1]+1)
+    return seq == list(range(seq[0], seq[-1]+1))
 
 if __name__ == "__main__":
     last_four = []
@@ -15,6 +14,6 @@ if __name__ == "__main__":
                 del last_four[0]
                 last_four.append(i)
             if len(last_four) == 4 and is_sequence(last_four):
-                print "FOUND!"
+                print("FOUND!")
                 break
-    print last_four
+    print(last_four)

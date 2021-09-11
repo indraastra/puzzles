@@ -2,8 +2,8 @@ import math
 
 def num_right_triangles(p):
     num = 0
-    for a in range(1,p/4+1):
-        for b in range(a+1,(p-a)/2+1):
+    for a in range(1,p//4+1):
+        for b in range(a+1,(p-a)//2+1):
             c = math.sqrt(a*a+b*b)
             if a+b+c == p:
                 num += 1

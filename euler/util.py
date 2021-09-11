@@ -59,13 +59,13 @@ def fast_totients(limit):
     return phis.astype(np.int64)
 
 
-digits = set([str(i) for i in range(1, 10)])
+digits = set(str(i) for i in range(1, 10))
 
 
 def is_pandigital(m, n=9):
     s = str(m)
-    if n != 9:
-        _digits = set([str(i) for i in range(1, n + 1)])
+    if 0 < n < 9:
+        _digits = set(str(i) for i in range(1, n + 1))
     else:
         _digits = digits
     return len(s) == n and set(s) == _digits
@@ -230,7 +230,7 @@ def prime_factors(n):
     return []
 
 
-_primes = (None, None)
+_primes = None
 
 
 def prime_factors_alt(n):
