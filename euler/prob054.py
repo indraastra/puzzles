@@ -31,13 +31,12 @@
 # 
 # How many hands does player one win?
 
-import psyco
 from collections import defaultdict
 
 def royal(h):
     first = h[0][0]
     nums = [c[0] for c in h]
-    r = range(14,9,-1)
+    r = list(range(14,9,-1))
     if nums == r:
         return first
     else:
@@ -53,7 +52,7 @@ def flush(h):
 def straight(h):
     first = h[0][0]
     nums = [c[0] for c in h]
-    r = range(first,first-5,-1)
+    r = list(range(first,first-5,-1))
     if nums == r:
         return first
     else:
@@ -81,7 +80,7 @@ def mostSame(h):
     d = defaultdict(int)
     for c in h:
         d[c[0]] += 1
-    v = d.items()
+    v = list(d.items())
     v.sort(key=lambda x:-x[1])
     return v[0]
 
@@ -165,7 +164,7 @@ if __name__ == "__main__":
         score = winner(h1,h2)
         if score[0] == 1:
             p1wins += 1
-            print h1, ":", score[1], ">", h2, score[2]
+            print(h1, ":", score[1], ">", h2, score[2])
         else:
-            print h1, ":", score[1], "<", h2, ":", score[2]
-    print p1wins
+            print(h1, ":", score[1], "<", h2, ":", score[2])
+    print(p1wins)

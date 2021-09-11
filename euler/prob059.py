@@ -1,4 +1,3 @@
-import psyco
 import re
 import random
 import util
@@ -35,4 +34,4 @@ def search(ciphertext):
                 if tried and found/tried >= .75:
                     return plaintext
 
-print sum(search(ciphertext))
+print(sum(search(ciphertext)))

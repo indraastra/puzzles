@@ -10,12 +10,11 @@
 # 
 # Which prime, below one-million, can be written as the sum of the most
 # consecutive primes?
-import psyco
 
 isPrime = [True]*1000001
 primes = []
 
-for i in xrange(2, 1000001):
+for i in range(2, 1000001):
     if isPrime[i]:
         primes.append(i)
         for j in range(i*i, 1000001, i):
@@ -36,9 +35,9 @@ if __name__ == "__main__":
     bestSoFar = 0
     bestLength = 0
     for p in reversed(primes):
-        print p
+        print(p)
         l = primeSum(p)
         if len(l) > bestLength:
             bestSoFar = p
             bestLength = len(l)
-    print bestSoFar, bestLength
+    print(bestSoFar, bestLength)

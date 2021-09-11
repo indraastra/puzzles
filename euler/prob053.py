@@ -15,11 +15,11 @@ def pascal_triangle(nrows):
     Generates rows of Pascal's triangle.
     """
     previous_row = None
-    for i in xrange(nrows):
+    for i in range(nrows):
         if not previous_row:
             previous_row = [1]
         else:
-            previous_row = [previous_row[i] + previous_row[i + 1] for i in xrange(len(previous_row))
+            previous_row = [previous_row[i] + previous_row[i + 1] for i in range(len(previous_row))
                             if (i + 1) < len(previous_row)]
             previous_row.insert(0, 1)
             previous_row.append(1)
@@ -34,4 +34,4 @@ if __name__ == "__main__":
             if nCr > 1000000:
                 count += 1
                 #print i, "choose", j, ":", nCr
-    print count
+    print(count)

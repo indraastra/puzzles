@@ -20,11 +20,11 @@ def is_lychrel(n, iteration):
 
 def solve():
     count = 0
-    for n in xrange(9999, 0, -1):
+    for n in range(9999, 0, -1):
         if is_lychrel(n, 0):
             count += 1
             #print n, "is lychrel"
-    print count, "total lychrels"
+    print(count, "total lychrels")
 
 if __name__ == "__main__":
     solve()
