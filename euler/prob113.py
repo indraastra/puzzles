@@ -1,4 +1,3 @@
-import psyco
 import cProfile
 
 def isInc(l):
@@ -22,7 +21,7 @@ def isBouncy(n):
 
 def nextInc(n):
     n += 1
-    l = map(int,list(str(n)))
+    l = list(map(int,list(str(n))))
     if isInc(l):
         return n
     else:
@@ -39,7 +38,7 @@ def nextInc(n):
 
 def nextDec(n):
     n += 1
-    l = map(int,list(str(n)))
+    l = list(map(int,list(str(n))))
     if isDec(l):
         return n
     else:
@@ -58,7 +57,7 @@ def nextDec(n):
 
 def nextBouncy(n):
     n += 1
-    l = map(int,list(str(n)))
+    l = list(map(int,list(str(n))))
     if isBouncy(l):
         return n
     else:
@@ -69,7 +68,7 @@ def nextBouncy(n):
         else:
             if l[-2] == 9:
                 n += 9
-                l = map(int,list(str(n)))
+                l = list(map(int,list(str(n))))
             l[-1] = l[-2]+1
             n = int(''.join(map(str,l)))
             if isInc(l):
@@ -90,7 +89,8 @@ def start():
             countNonBouncy += (j-i)
             prevBouncy = True
         i = j
-    print countNonBouncy
+    print(countNonBouncy)
 
 if __name__ == "__main__":
-    cProfile.run("start()")
+    #cProfile.run("start()")
+    start()

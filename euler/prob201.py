@@ -1,4 +1,3 @@
-import psyco
 
 S = [i ** 2 for i in range(1, 101)]
 c = 50
@@ -6,10 +5,10 @@ min = sum(S[:50])
 max = sum(S[50:])
 S.reverse()
 
-print "S", S
-print "c", c
-print "min", min
-print "max", max
+print("S", S)
+print("c", c)
+print("min", min)
+print("max", max)
 #S = reversed([1,3,6,8,10,11])
 #c = 3
 #min = 10
@@ -41,5 +40,5 @@ if __name__ == "__main__":
     #    if num_ways(i, c, S) == 1:
     #        print i
     #        total += i
-    print num_ways(42925, c, S)
-    print "TOTAL:", total
+    print(num_ways(42925, c, S))
+    print("TOTAL:", total)

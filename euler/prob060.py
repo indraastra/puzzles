@@ -1,11 +1,10 @@
-import psyco
 import util
 
 primes = util.primes(9999)
 primes_set = set(util.primes(99999999))
 
 # pass 1: pairs
-print "pairs"
+print("pairs")
 conc_pairs = set()
 for p1 in primes:
     for p2 in reversed(primes):
@@ -17,10 +16,10 @@ for p1 in primes:
                    conc_pairs.add((p1,p2))
         else:
             break
-print conc_pairs
+print(conc_pairs)
 
 # pass 2: triples
-print "triples"
+print("triples")
 conc_triples = set()
 for p1,p2 in conc_pairs:
     for p3 in reversed(primes):
@@ -30,11 +29,11 @@ for p1,p2 in conc_pairs:
                    conc_triples.add((p1,p2,p3))
         else:
             break
-    
-print conc_triples
+
+print(conc_triples)
 
 # pass 3: quadruples
-print "quads"
+print("quads")
 conc_quads = set()
 for p1,p2,p3 in conc_triples:
     for p4 in reversed(primes):
@@ -46,10 +45,10 @@ for p1,p2,p3 in conc_triples:
         else:
             break
 
-print conc_quads
+print(conc_quads)
 
 # pass 4: quintuples
-print "quints"
+print("quints")
 conc_quints = set()
 for p1,p2,p3,p4 in conc_quads:
     for p5 in reversed(primes):
@@ -63,5 +62,5 @@ for p1,p2,p3,p4 in conc_quads:
             break
 
 conc_quints = list(conc_quints)
-conc_quints.sort(lambda x: sum(x))
-print conc_quints[0], sum(conc_quints[0])
+conc_quints.sort(key=lambda x: sum(x))
+print(conc_quints[0], sum(conc_quints[0]))

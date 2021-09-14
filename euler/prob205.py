@@ -1,9 +1,8 @@
 import util
-import psyco
 
 _sum = sum
 
-r4 = range(1,5)
+r4 = list(range(1,5))
 peter_distribution = {}
 for a in r4:
     for b in r4:
@@ -19,9 +18,9 @@ for a in r4:
                                     peter_distribution[sum] = count + 1
 
 util.normalize(peter_distribution)
-print peter_distribution
+print(peter_distribution)
 
-r6 = range(1,7)
+r6 = list(range(1,7))
 colin_distribution = {}
 for a in r6:
     for b in r6:
@@ -34,7 +33,7 @@ for a in r6:
                         colin_distribution[sum] = count + 1
 
 util.normalize(colin_distribution)
-print colin_distribution
+print(colin_distribution)
 
 def P_P_greater_c(c):
     sum = 0
@@ -62,7 +61,7 @@ def P_p(p):
 P = 0
 for c in colin_distribution:
     P += P_c(c) * P_P_greater_c(c)
-print P
+print(P)
 
 # alternate method is to compute the joint
 joint = {}
@@ -80,4 +79,4 @@ for p, c in joint:
         P_e += joint[(p,c)]
     elif p > c:
         P_g += joint[(p,c)]
-print P_g
+print(P_g)

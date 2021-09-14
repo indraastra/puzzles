@@ -5,7 +5,7 @@ import util
 wordre = "[a-zA-Z]+"
 
 words = set([w.strip().lower() for w in open("/etc/dictionaries-common/words").readlines()])
-ciphertext = [int(i) for i in open("cipher1.txt").read().split(",")]
+ciphertext = [int(i) for i in open("p059_cipher.txt").read().split(",")]
 
 def decode(ciphertext, key):
     plaintext = ciphertext[:]

@@ -14,14 +14,14 @@ def solve():
     phi = 0
     for p in primes:
         if product * p <= 1000000:
-            print "multiplying one more prime:", p
+            print("multiplying one more prime:", p)
             product *= p
             phi += 1
         else:
             break
-    print "final n:", product
-    print "phi(n):", phi
-    print "n/phi(n):", product/float(phi)
+    print("final n:", product)
+    print("phi(n):", phi)
+    print("n/phi(n):", product/float(phi))
 
 if __name__ == "__main__":
     solve()

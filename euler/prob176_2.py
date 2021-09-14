@@ -1,5 +1,4 @@
 import math
-import psyco
 
 def squareComplements( n ):
     TC = 0
@@ -38,9 +37,9 @@ if __name__ == "__main__":
     while True:
         l = len( list( squareComplements( i ) ) )
         if l > 30:
-            print i, "got:", l
+            print((i, "got:", l))
         if l == 47547:
-            print "found!:", i
+            print(("found!:", i))
             break
         else:
             i += 1

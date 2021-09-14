@@ -1,4 +1,3 @@
-import psyco
 
 numNotBouncy = 0
 
@@ -16,6 +15,6 @@ while i < 10000000:
         numNotBouncy += 1
     proportion = numNotBouncy/float(i)
     if proportion >= .99:
-        print i, proportion
+        print((i, proportion))
         break
     i += 1

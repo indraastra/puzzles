@@ -1,5 +1,4 @@
 import math
-import psyco
 
 def squareComplements( n ):
     stuff = n ** 2
@@ -26,7 +25,7 @@ def squareComplements( n ):
         if  c % 1 == 0:
             yield int(c)
         i -= 1
-    print tc
+    print(tc)
 
 def factorpairs( n ):
     i = 2
@@ -39,9 +38,9 @@ if __name__ == "__main__":
     i = 1000000
     while True:
         l = len( list( squareComplements( i ) ) )
-        print i, "got:", l
+        print((i, "got:", l))
         if l == 47547:
-            print "found!:", i
+            print(("found!:", i))
             break
         else:
             i += 1

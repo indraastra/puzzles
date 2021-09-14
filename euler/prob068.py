@@ -1,4 +1,3 @@
-import psyco
 
 class Node:
     def __init__(self, id, gon):
@@ -50,7 +49,7 @@ class Gon:
             n2.add_neighbor(n3)
             n3.add_neighbor(n2)
             self.links[i].nodes = [n1, n2, n3]
-    
+
     def __str__(self):
         strs = [str(l) for l in self.links]
         min_idx = min(enumerate(map(int,strs)), key=lambda x: x[1])[0]

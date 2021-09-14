@@ -11,16 +11,16 @@ def squareComplements( n ):
                 yield int(c)
         c += 1
         TC+=1
-    print "TC:", TC
+    print(("TC:", TC))
 
 if __name__ == "__main__":
     i = 1000
     while True:
-        print "checking:", i
+        print(("checking:", i))
         l = len( list( squareComplements( i ) ) )
-        print "got:", l
+        print(("got:", l))
         if l == 47547:
-            print "found!:", i
+            print(("found!:", i))
             break
         else:
             i += 1

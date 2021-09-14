@@ -17,4 +17,4 @@ if __name__ == "__main__":
                     (c[0], c[1])]
         if area(a, b, c) == (area(a, b, O) + area(a, O, c) + area(O, b, c)):
             count += 1
-    print count
+    print(count)
