@@ -167,8 +167,15 @@ def primes(n):
 
 
 def is_prime(n):
-    factors = prime_factors(n)
-    return factors == [n]
+    if n % 2 == 0:
+        return False
+    f = 3
+    while f * f <= n:
+        if n % f == 0:
+            return False
+        else:
+            f += 2
+    return n != 1
 
 
 def is_palindrome(s):
