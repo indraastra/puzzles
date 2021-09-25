@@ -204,9 +204,9 @@ class Cheater:
 def main():
 	player = 'blue'
 
-	print "loading words..."
+	print("loading words...")
 	words = [Word(w) for w in open("/usr/share/dict/words") if 15 > len(w) > 6]
-	print len(words), "words loaded"
+	print(len(words), "words loaded")
 
 	board = Board(5, 5)
 	board.parse("A[red].B[red].C[red].D.E;A[red].B[red].C[red].D.E;A.B.C[red].D.E;A.B.C[red].D.E;A.B.C.D.E")
@@ -214,19 +214,19 @@ def main():
 
 	while True:
 		# Handle player move or board update.
-		command = raw_input("[%s] command > " % colored(player, player))
+		command = input("[%s] command > " % colored(player, player))
 		if command.startswith("cheat"):
 			player = command.split(" ")[1] if " " in player else player
 			scored_moves = cheater.best(player)
 			for i, (move, score) in enumerate(scored_moves):
 				preview, score = board.preview(move, player)
-				print
-				print "[ Move", i + 1, "]"
-				print "word:", move.word.word
-				print preview
-				print "score: red", score[0]["red"], ", blue", score[0]["blue"]
+				print()
+				print("[ Move", i + 1, "]")
+				print("word:", move.word.word)
+				print(preview)
+				print("score: red", score[0]["red"], ", blue", score[0]["blue"])
 
-			choice = input("enter move # > ")
+			choice = eval(input("enter move # > "))
 			if choice == 0: continue
 			chosen_move = scored_moves[choice - 1][0]
 			board.play(chosen_move, player)
@@ -248,13 +248,13 @@ def main():
 			continue
 
 		score = board.score()[0]
-		print
-		print "[[ Current Board ]]"
-		print "#" * 5
-		print board
-		print "#" * 5
-		print "score: red", score["red"], ", blue", score["blue"]
-		print
+		print()
+		print("[[ Current Board ]]")
+		print("#" * 5)
+		print(board)
+		print("#" * 5)
+		print("score: red", score["red"], ", blue", score["blue"])
+		print()
 
 
 if __name__ == '__main__':

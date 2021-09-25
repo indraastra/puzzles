@@ -1,3 +1,4 @@
+from itertools import chain, combinations
 import math
 import functools
 import numpy as np
@@ -185,10 +186,6 @@ def is_palindrome(s):
     return s == s_rev
 
 
-def combinations(l):
-    pass
-
-
 def permutations(l):
     if not l:
         yield []
@@ -318,3 +315,19 @@ def subsequences(sequence, n):
         for i, el in enumerate(sequence):
             for subseq in subsequences(sequence[i:], n - 1):
                 yield [el] + subseq
+
+
+def powerset(xs):
+    return chain.from_iterable(combinations(xs, r) for r in range(len(xs)+1))
+
+
+def partitions(xs):
+    if len(xs) == 1:
+        yield [xs]
+        return
+
+    first = xs[0]
+    for smaller in partitions(xs[1:]):
+        for n, subset in enumerate(smaller):
+            yield smaller[:n] + [[first] + subset] + smaller[n+1:]
+        yield [[first]] + smaller
