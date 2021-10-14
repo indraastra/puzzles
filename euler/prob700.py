@@ -55,15 +55,35 @@ def fast_eulercoins(euler, mod):
             current = (current + euler) % mod
 
 
-if __name__ == '__main__':
-    euler, mod = map(int, sys.argv[1:])
-    #euler = 1504170715041707
-    #mod   = 4503599627370517
+def fastest_eulercoins(euler, mod):
+    delta = mod % euler
+    odelta = delta
+    coin = euler
 
-    print(euler, mod, mod % euler)
-    for eulercoins in [slow_eulercoins, fast_eulercoins]:
-    #for eulercoins in [fast_eulercoins]:
-        print(eulercoins)
-        for i, e in enumerate(itertools.islice(eulercoins(euler, mod), 100)):
-            print(f'{str(i).zfill(5)} >>>', e)
-        print()
+    total = coin
+    prev_coin = euler * 2
+
+    yield coin
+    print('found', coin, 'total', total, 'delta', delta)
+    while coin > 1:
+        if delta > coin:
+            delta = delta % coin
+        coin = coin - delta
+        if coin < prev_coin:
+            prev_coin = coin
+            total += coin
+            yield coin
+            print('found', coin, 'total', total, 'delta', delta)
+
+
+if __name__ == '__main__':
+    #euler, mod = map(int, sys.argv[1:])
+    #for eulercoins in [slow_eulercoins, fastest_eulercoins]:
+    #    print(eulercoins)
+    #    for i, e in enumerate(itertools.islice(eulercoins(euler, mod), 100)):
+    #        print(f'{str(i).zfill(5)} >>>', e)
+    #    print()
+    euler = 1504170715041707
+    mod   = 4503599627370517
+    print(sum(fastest_eulercoins(euler, mod)))
+
