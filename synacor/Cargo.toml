@@ -2,7 +2,19 @@
 name = "synacor"
 version = "0.1.0"
 edition = "2021"
+default-run = "vm"
 
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+[[bin]]
+name = "vm"
+path = "src/main.rs"
+
+[[bin]]
+name = "teleport"
+path = "src/teleport.rs"
+
+[profile.release]
+opt-level = 3
 
 [dependencies]
+indicatif = { version = "0.17.1", features = ["improved_unicode", "rayon"] }
+rayon = "1.5.3"
